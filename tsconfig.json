@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "strict": true,
+    "types": [],
+    "watch": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true
+  }
+}
