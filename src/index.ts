@@ -70,17 +70,85 @@ const user: User = {
 user.id = 2;
 user.name += ' Lundin';
 
-// 4.1. watch output
+// 4.1. watch output (interface etc)
+// 4.2. same example using classes and modifiers
+// 4.3. readonly for index signatures
+const weekdays = [
+  'monday',
+  'tuesday',
+  'wednesday',
+  'thursday',
+  'friday'
+];
+weekdays[0] = 'sunday';
+// check lib for readonly array (index signature, length, methods)
 
-// javascript types
-let str: string;
-let num: number;
-let bol: boolean;
-let nil: null;
-let und: undefined;
+// 5. Represent non primitive types with the object type
+type Primitive = 
+  | boolean
+  | number
+  | string
+  | symbol
+  | null
+  | undefined;
 
 let obj: object; // {} [] Math.number
+obj = true;
+obj = 42;
+obj = 'text';
+obj = Symbol();
+obj = null;
+obj = undefined;
 
+obj = {};
+obj = [];
+obj = Math.random;
+// Object.create() example
+// empty object and index signature example
+
+// 6. Never type and exhaustiveness checking
+const sing = function () {
+  while (true) {
+    console.log('Never gonna give you up');
+    console.log('Never gonna let you go');
+  }
+  // ..never?
+}
+// 6.1. never vs void
+const greet = () => {
+  alert('hi!');
+}
+const maybeeGreet = () => {
+  throw new Error('doh!');
+}
+// 6.2. never in control flow and type guards
+// trim and lower example
+// exhaustiveness checking
+enum Size {
+  S,
+  M,
+  L,
+}
+function prettyPrint(size: Size) {
+  switch (size) {
+    case Size.S: return 'small';
+    case Size.M: return 'medium';
+    case Size.L: return 'large';
+    // default: assertNever(size);
+  }
+}
+function assertNever(value: never): never {
+  throw Error(`Unexpected value: '${value}'`);
+}
+
+// 7. Overload Signatures
+function reverse(value: string | any[]) {
+  return Array.isArray(value)
+    ? value.slice().reverse()
+    : [...value].reverse().join('');
+}
+const val1 = reverse('OlasalO');
+const val2 = reverse([1, 2, 3, 4]);
 
 // mapped types
 // - (object.freeze -> ReadOnly)
