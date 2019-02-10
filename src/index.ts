@@ -145,7 +145,7 @@ function assertNever(value: never): never {
 function reverse(value: string | any[]) {
   return Array.isArray(value)
     ? value.slice().reverse()
-    : [...value].reverse().join('');
+    : value.split('').reverse().join('');
 }
 const val1 = reverse('OlasalO');
 const val2 = reverse([1, 2, 3, 4]);
@@ -157,3 +157,4 @@ const val2 = reverse([1, 2, 3, 4]);
 
 // import json
 import pkg from '../package.json';
+console.log(pkg.author);
