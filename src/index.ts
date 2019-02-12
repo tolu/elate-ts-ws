@@ -51,7 +51,7 @@
 
 
 
-// 1. restricting non nullable types
+// 1. Restricting non nullable types
 function trimAndLower(text: string) {
   return text.trim().toLowerCase();
 }
@@ -62,8 +62,8 @@ txt = 'hey';
 txt = null;
 txt = undefined;
 
-// 1.0 change tsconfig
-// 1.1 non null assertion operator
+// 1.0 change tsconfig (strict = true)
+// 1.1 non null assertion operator (!)
 const container = document.getElementById('flow')!;
 
 
