@@ -5,6 +5,8 @@ TypeScript workshop at Elate
 
 Resources
 
+- <https://github.com/Microsoft/TypeScript/wiki/Roadmap>
 - <https://egghead.io/lessons/typescript-overload-a-function-with-typescript-s-overload-signatures>
-- Basarat book
-- TS Playground
+- <https://basarat.gitbooks.io/typescript/content/docs/getting-started.html>
+- <https://www.typescriptlang.org/play/>
+- <https://fettblog.eu/typescript-built-in-generics/>

@@ -9,6 +9,48 @@
   - consuming and exporting
 */
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // 1. restricting non nullable types
 function trimAndLower(text: string) {
   return text.trim().toLowerCase();
@@ -20,8 +62,36 @@ txt = 'hey';
 txt = null;
 txt = undefined;
 
+// 1.0 change tsconfig
 // 1.1 non null assertion operator
 const container = document.getElementById('flow')!;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // 2. Control flow based analysis
 function trimAndLowerGood(text: string | null | undefined) {
@@ -35,9 +105,47 @@ function trimAndLowerGood(text: string | null | undefined) {
 }
 // 2.1 Using ternary operator
 // 2.2 Assigning changes type inference
-let foo: number | undefined;
-foo = 42;
-foo;
+let num: number | undefined;
+num = 42;
+num;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // 3. Type guards
 const numbers = [0, 1, 2, [3, 4], 5, [6, 7], 8, 9];
@@ -57,6 +165,40 @@ function flatten(array: (number | number[])[]) {
 function isFlat<T>(array: (T | T[])[]): array is T[] {
   return !array.some(Array.isArray);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // 4. Readonly for properties and index signatures
 interface User {
@@ -83,6 +225,34 @@ const weekdays = [
 weekdays[0] = 'sunday';
 // check lib for readonly array (index signature, length, methods)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // 5. Represent non primitive types with the object type
 type Primitive = 
   | boolean
@@ -96,7 +266,7 @@ let obj: object; // {} [] Math.number
 obj = true;
 obj = 42;
 obj = 'text';
-obj = Symbol();
+// obj = Symbol();
 obj = null;
 obj = undefined;
 
@@ -106,6 +276,42 @@ obj = Math.random;
 // Object.create() example
 // empty object and index signature example
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // 6. Never type and exhaustiveness checking
 const sing = function () {
   while (true) {
@@ -114,6 +320,18 @@ const sing = function () {
   }
   // ..never?
 }
+
+
+
+
+
+
+
+
+
+
+
+
 // 6.1. never vs void
 const greet = () => {
   alert('hi!');
@@ -141,6 +359,35 @@ function assertNever(value: never): never {
   throw Error(`Unexpected value: '${value}'`);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // 7. Overload Signatures
 function reverse(value: string | any[]) {
   return Array.isArray(value)
@@ -150,11 +397,418 @@ function reverse(value: string | any[]) {
 const val1 = reverse('OlasalO');
 const val2 = reverse([1, 2, 3, 4]);
 
-// mapped types
+// note: matching signatures
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 8. String enum
+enum MediaTypes {}
+
+fetch('https://example.com/api/endpoint', {
+  headers: {
+    Accept: 'application/json'
+  }
+})
+// 8.1. numeric enums and reverse mapping (output)
+// 8.2. const enum output and comment removal
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 9. Literal Types
+const autoComplete = 'on';
+const httpOk = 200;
+const isOk = true;
+
+// 9.1. union types
+// 9.2. css value example
+type cssDefaults = 'initial' | 'inherit' | 'unset';
+type fontWeight = cssDefaults | 'normal' | 'bold' | 'lighter' | 600 | 800;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 10. Discriminating union types
+// discriminant property must be a literal type
+function tryParseInt(text: string) {
+  if(/^~?\d+$/.test(text)) {
+    return {
+      success: true,
+      value: parseInt(text, 10)
+    }
+  } else {
+    return {
+      success: false,
+      error: 'Invalid number format'
+    }
+  }
+}
+
+
+const result = tryParseInt('42');
+type IntResult = 
+  | { success: true, value: number }
+  | { success: false, error: string };
+
+// 10.1 second example
+interface Cash {
+  kind: 'cash';
+}
+interface Card {
+  kind: 'card';
+  cardNumber: string;
+}
+interface PayPal {
+  kind: 'paypal';
+  email: string;
+}
+type PaymentMethod = Cash | Card | PayPal;
+const method = foo() as PaymentMethod;
+switch (method.kind) {
+  case '_':
+    break;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 11. type inference in spread / rest
+const person = {
+  name: 'Tobias',
+  blog: 'some/url',
+  twitter: '@someone'
+}
+const { name, ...socialMedia } = person;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 12. keyof and Lookup types
+interface Todo {
+  id: number;
+  text: string;
+  completed: boolean;
+}
+
+const todo: Todo = {
+  id: 1,
+  text: 'learn TS',
+  completed: false,
+}
+
+// type me plz! union first, lookup later
+function getProp(obj: Todo, key) {
+  return obj[key];
+}
+
+const todoId = getProp(todo, 'id');
+
+// example
+document.addEventListener('click', () => ({}));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 13. mapped types
+interface Point {
+  x: number;
+  y: number;
+  z: number;
+}
+const origin: Point = { x: 0, y: 0, z: 0 };
+
 // - (object.freeze -> ReadOnly)
 
-// addEventListener type
+// 13.1. Decompile Readonly generic to Point
+// 13.2. Partial mapped type
+// 13.3 Create more mapped types and go into the rabbit hole
+
+type Nullable<T> = {
+  [P in keyof T]: T[P] | null;
+}
+type Stringable<T> = {
+  [P in keyof T]: string;
+}
+let point2: Nullable<Point>;
+point2 = { x: null, y: 0, z: 0 };
+
+let point3: Partial<Nullable<Point>>;
+point3 = { x: null, y: undefined, z: 0 };
+
+let point4: Partial<Nullable<Stringable<Point>>>;
+point4 = { x: null, y: undefined, z: '0' };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 14. Built-in generic types
+type noRead = Readonly<{}>;
+type noReadArr = ReadonlyArray<string>;
+type returns = ReturnType<() => 'hey'>;
+type notAll = Partial<{ foo: 'foo', bar: 'bar' }>;
+type yesAll = Required<{ foo?: 'foo', bar?: 'bar' }>;
+// NonNullable
+// Pick
+// Record
+// Extract
+// Exclude
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // import json
 import pkg from '../package.json';
 console.log(pkg.author);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// helper
+function foo(): any {}
