@@ -1,8 +1,7 @@
 {
-  "compileOnSave": true,
   "compilerOptions": {
     "outDir": "dist",
-    "strict": false,
+    "strict": true,
     "types": [],
     "watch": true,
     "resolveJsonModule": true,
