@@ -693,6 +693,8 @@ const origin: Point = { x: 0, y: 0, z: 0 };
 
 // 13.1. Decompile Readonly generic to Point
 // 13.2. Partial mapped type
+
+
 // 13.3 Create more mapped types and go into the rabbit hole
 
 type Nullable<T> = {
@@ -780,16 +782,21 @@ type yesAll = Required<{ foo?: 'foo', bar?: 'bar' }>;
 
 
 
+// FINAL POINTS
 
 // import json
+// --resolveJsonModule
 import pkg from '../package.json';
 console.log(pkg.author);
 
 
+// [ ] IDE help / refactoring
 
+// [ ] gradual rewrite of codebase vs starting fresh
 
+// [ ] atv.d.ts example
 
-
+// [ ] https://github.com/tolu/elate-ts-ws
 
 
 
